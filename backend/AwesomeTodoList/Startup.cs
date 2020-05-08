@@ -42,6 +42,8 @@ namespace AwesomeTodoList
 
             app.UseRouting();
 
+            app.UseCors();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -52,6 +54,17 @@ namespace AwesomeTodoList
 
         private void ConfigureTodoList(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
+            
             services.AddSingleton(typeof(ITodoListRepository), typeof(TodoListRepository));
         }
     }

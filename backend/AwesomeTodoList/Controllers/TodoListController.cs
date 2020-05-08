@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace AwesomeTodoList.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/v1/[controller]")]
     public class TodoListController : ControllerBase
     {
         private readonly ILogger<TodoListController> _logger;
