@@ -1,4 +1,7 @@
-<p>todo-list works!</p>
+<form [formGroup]="form">
+  <input type="text" formControlName="title">
+  <button (click)="addTodo()" [disabled]="form.invalid">Adicionar</button>
+</form>
 <ul>
   <li *ngFor="let todo of todos">
     {{todo.name}}
