@@ -3,7 +3,7 @@
   <button (click)="addTodo()" [disabled]="form.invalid">Adicionar</button>
 </form>
 <ul>
-  <li *ngFor="let todo of todos">
-    {{todo.name}}
+  <li *ngFor="let todo of todos" [className]="todo.done ? 'strikethrough' : ''">
+    {{todo.name}} <input type="checkbox" [checked]="todo.done" (change)="markDone($event, todo.id)">
   </li>
 </ul>

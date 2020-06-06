@@ -31,6 +31,11 @@ export class TodoService {
       .pipe(catchError(this.handleError.bind(this)));
   }
 
+  markDone(id: number) {
+    return this.http.put<Todo>(`${this.API}/${id}`, httpOptions)
+      .pipe(catchError(this.handleError.bind(this)));
+  }
+
   handleError(errorResponse: HttpErrorResponse) {
     if (errorResponse.error instanceof ErrorEvent) {
       console.error('Client Side Error :', errorResponse.error.message);

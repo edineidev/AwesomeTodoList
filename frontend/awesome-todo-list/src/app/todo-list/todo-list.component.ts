@@ -29,14 +29,19 @@ export class TodoListComponent implements OnInit {
 
   load() {
     this.todoService.getAll().subscribe(todos => this.todos = todos);
+    console.log(this.todos);
   }
 
   addTodo() {
     const title = this.form.get('title').value;
-    console.log(title);
     this.todoService.post(title).subscribe(console.log);
     this.form.reset();
     this.load();
+  }
+
+  markDone(event, id){
+    console.log(event.target.checked);
+    this.todoService.markDone(id).subscribe(console.log);
   }
 
 }
