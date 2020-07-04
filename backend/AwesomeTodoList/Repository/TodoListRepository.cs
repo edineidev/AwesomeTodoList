@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using AwesomeTodoList.Model;
 using Dapper;
+using SqlKata;
+using SqlKata.Compilers;
 
 namespace AwesomeTodoList.Repository
 {
@@ -15,11 +17,12 @@ namespace AwesomeTodoList.Repository
 
             using (var cnn = SimpleDbConnection())
             {
+                var compiler = new SqliteCompiler();
+                var query = new Query("TodoList");
+                SqlResult result = compiler.Compile(query);
+
                 cnn.Open();
-                var result = cnn.Query<TodoList>(
-                    @"SELECT Id, Name, Done
-                    FROM TodoList");
-                return result;
+                return cnn.Query<TodoList>(result.Sql);
             }
         }
 
@@ -29,12 +32,12 @@ namespace AwesomeTodoList.Repository
 
             using (var cnn = SimpleDbConnection())
             {
+                var compiler = new SqliteCompiler();
+                var query = new Query("TodoList").Where("Id", todoListId);
+                SqlResult result = compiler.Compile(query);
+
                 cnn.Open();
-                var result = cnn.Query<TodoList>(
-                    @"SELECT Id, Name, Done
-                    FROM TodoList
-                    WHERE Id = @todoListId", new { todoListId }).FirstOrDefault();
-                return result;
+                return cnn.Query<TodoList>(result.Sql).FirstOrDefault();
             }
         }
 
@@ -47,6 +50,14 @@ namespace AwesomeTodoList.Repository
 
             using (var cnn = SimpleDbConnection())
             {
+                var compiler = new SqliteCompiler();
+                var query = new Query("TodoList").AsInsert(new {
+                    Name = todoList.Name
+                }, returnId: true);
+                SqlResult result = compiler.Compile(query);
+
+                Console.WriteLine(result.Sql);
+
                 cnn.Open();
                 todoList.Id = cnn.Query<int>(
                     @"INSERT INTO TodoList
