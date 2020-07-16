@@ -9,5 +9,6 @@ namespace AwesomeTodoList.Repository
          TodoList Get(int todoListId);
          void Save(TodoList todoList);
          void SetDone(int todoListId);
+         void SetUnDone(int todoListId);
     }
 }

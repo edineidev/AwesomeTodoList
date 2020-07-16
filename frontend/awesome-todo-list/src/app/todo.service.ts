@@ -32,7 +32,12 @@ export class TodoService {
   }
 
   markDone(id: number) {
-    return this.http.put<Todo>(`${this.API}/${id}`, httpOptions)
+    return this.http.put<Todo>(`${this.API}/done/${id}`, httpOptions)
+      .pipe(catchError(this.handleError.bind(this)));
+  }
+
+  markUnDone(id: number) {
+    return this.http.put<Todo>(`${this.API}/undone/${id}`, httpOptions)
       .pipe(catchError(this.handleError.bind(this)));
   }
 

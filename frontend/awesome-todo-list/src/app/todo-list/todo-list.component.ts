@@ -41,7 +41,12 @@ export class TodoListComponent implements OnInit {
 
   markDone(event, id){
     console.log(event.target.checked);
-    this.todoService.markDone(id).subscribe(console.log);
+    if (event.target.checked) {
+      this.todoService.markDone(id).subscribe(console.log);
+    } else {
+      this.todoService.markUnDone(id).subscribe(console.log);
+    }
+
   }
 
 }

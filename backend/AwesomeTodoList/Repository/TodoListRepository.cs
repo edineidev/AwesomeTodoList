@@ -70,5 +70,20 @@ namespace AwesomeTodoList.Repository
                     WHERE Id = @todoListId", new { done, todoListId });
             }
         }
+
+        public void SetUnDone(int todoListId)
+        {
+            if (!File.Exists(DbFile)) throw new System.Exception("The DbFile doesn't exists.");
+
+            using (var cnn = SimpleDbConnection())
+            {
+                var done = DateTime.UtcNow;
+                cnn.Open();
+                cnn.Execute(
+                    @"UPDATE TodoList
+                    SET Done = NULL
+                    WHERE Id = @todoListId", new { done, todoListId });
+            }
+        }
     }
 }

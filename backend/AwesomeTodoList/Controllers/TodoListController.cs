@@ -36,11 +36,20 @@ namespace AwesomeTodoList.Controllers
             _todoListRepository.Save(todoList);
         }
 
+        [Route("done/{todoListId}")]
         [HttpPut("{todoListId}", Name = "SetDone")]
         public void SetDone([FromRoute] int todoListId)
         {
             _logger.LogInformation($"todoListId: {todoListId}");
             _todoListRepository.SetDone(todoListId);
+        }
+
+        [Route("undone/{todoListId}")]
+        [HttpPut("{todoListId}", Name = "SetUnDone")]
+        public void SetUnDone([FromRoute] int todoListId)
+        {
+            _logger.LogInformation($"todoListId: {todoListId}");
+            _todoListRepository.SetUnDone(todoListId);
         }
     }
 }
