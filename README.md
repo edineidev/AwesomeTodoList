@@ -1,5 +1,9 @@
 # Awesome todo list
 Todo list completo usando dotnet core (C#) e Angular com sqlite.
+Conceitos:
+Repository pattern
+
+![Diagrama Awesome todo list](assets/tood-list-diagram.png)
 
 ## Backend
 ### Requerimentos
